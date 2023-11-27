@@ -3,9 +3,19 @@ import React from 'react'
 import './List.css'
 import Card from '../Card/Card'
 
-let cardCount = 0;
 
 export default function List(props) {
+  const [cardCount, setCardCount] = useState(0);
+
+    useEffect(() => {
+        let count = 0;
+        props.ticketDetails.forEach((ticket) => {
+        if (ticket.status === props.listTitle || ticket.priority === props.listTitle || ticket.userObj.name === props.listTitle) {
+            count++;
+        }
+        });
+        setCardCount(count);
+    }, [props.ticketDetails, props.listTitle]);
   return (
     <>
         <div className="list-container">
@@ -72,25 +82,15 @@ export default function List(props) {
             </div>
 
             <div className="list-card-items">
-                {
-                    props.ticketDetails.map(ticket => {
-                        if(ticket.status === props.listTitle){
-                            cardCount++;
-                            return(<Card cardDetails={ticket} />)
-                        }
-                        else if(ticket.priority === props.listTitle){
-                            cardCount++;
-                            return(<Card cardDetails={ticket} />)
-                        }
-                        else if(ticket.userObj.name === props.listTitle){
-                            cardCount++;
-                            return(<Card cardDetails={ticket} />)
-                        }
-                        return null
-                    }, cardCount = 0)
-                    
-                }
+                {props.ticketDetails.map((ticket) => {
+                    if (ticket.status === props.listTitle || ticket.priority === props.listTitle || ticket.userObj.name === props.listTitle) {
+                    return <Card cardDetails={ticket} />;
+                    }
+                    return null;
+                })}
+                </div>
             </div>
+            <div className="list-count">Cards: {cardCount}</div>
         </div>
     </>
   )
