@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import './List.css'
 import Card from '../Card/Card'
 
 
+// let cardCount=0;
 export default function List(props) {
-  const [cardCount, setCardCount] = useState(0);
+
+    const [cardCount, setCardCount] = useState(0);
 
     useEffect(() => {
         let count = 0;
@@ -16,6 +18,7 @@ export default function List(props) {
         });
         setCardCount(count);
     }, [props.ticketDetails, props.listTitle]);
+
   return (
     <>
         <div className="list-container">
@@ -81,6 +84,8 @@ export default function List(props) {
                 </div>
             </div>
 
+            <div className="list-card-items">
+                
             <div className="list-card-items">
                 {props.ticketDetails.map((ticket) => {
                     if (ticket.status === props.listTitle || ticket.priority === props.listTitle || ticket.userObj.name === props.listTitle) {
