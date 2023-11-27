@@ -95,7 +95,6 @@ export default function List(props) {
                 })}
                 </div>
             </div>
-            <div className="list-count">Cards: {cardCount}</div>
         </div>
     </>
   )
